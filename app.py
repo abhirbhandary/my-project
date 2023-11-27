@@ -118,10 +118,6 @@ def main():
         )
         os.environ["OPENAI_API_KEY"] = openai_api_key
 
-        #Intialize session state
-        if "search_state" not in st.session_state:
-            st.session_state.search_state = False
-
         #st.sidebar.image("img/logo1.jpg", use_column_width=True)
         pdf = st.file_uploader(
         "Upload file",
@@ -132,6 +128,10 @@ def main():
 
         questions = st.slider("Number of questions", 0, 10, 3) 
         search = st.button('Search')
+
+        #Intialize session state
+        if "search_state" not in st.session_state:
+            st.session_state.search_state = False
         
         
 
