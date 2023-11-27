@@ -1,6 +1,6 @@
 import base64
 from streamlit_chat import message
-#from streamlit_javascript import st_javascript
+from streamlit_javascript import st_javascript
 
 
 from dotenv import load_dotenv
@@ -21,6 +21,8 @@ import itertools
 from langchain.chains import QAGenerationChain
 from langchain.chat_models import ChatOpenAI
 
+
+import os
 
 def main():
 
@@ -103,9 +105,11 @@ def main():
 
     with st.sidebar:
 
-        Test= st.text_input(
+        openai_api_key= st.text_input(
         "OpenAI API Key", key="file_qa_api_key", type="password"
         )
+
+        os.environ["OPENAI_API_KEY"] = openai_api_key
 
         questions = st.slider("Number of questions", 0, 10, 3) 
 
@@ -160,6 +164,9 @@ def main():
       
                 # create embeddings
                 embeddings = OpenAIEmbeddings()
+
+               
+
                 knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 
