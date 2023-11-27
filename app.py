@@ -1,6 +1,6 @@
 import base64
 from streamlit_chat import message
-#from streamlit_javascript import st_javascript
+from streamlit_javascript import st_javascript
 
 
 from dotenv import load_dotenv
