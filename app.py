@@ -27,8 +27,16 @@ import os
 def main():
 
     load_dotenv()
-    st.set_page_config(page_title="pdf-GPT", page_icon="📖", layout="wide")
-    st.header("pdf-GPT")
+
+    # setup streamlit page
+    st.set_page_config(
+        page_title="PDF Analyzer",
+        page_icon="📖",
+        layout="wide"
+    )
+
+    #st.set_page_config(page_title="pdf-GPT", page_icon="📖", layout="wide")
+    st.header("PDF Analyzer")
 
     st.markdown(
         """
@@ -108,12 +116,7 @@ def main():
         openai_api_key= st.text_input(
         "OpenAI API Key", key="file_qa_api_key", type="password"
         )
-
         os.environ["OPENAI_API_KEY"] = openai_api_key
-
-        questions = st.slider("Number of questions", 0, 10, 3) 
-
-        search = st.button('Search')
 
         #Intialize session state
         if "search_state" not in st.session_state:
@@ -127,6 +130,8 @@ def main():
         on_change=clear_submit,
         )
 
+        questions = st.slider("Number of questions", 0, 10, 3) 
+        search = st.button('Search')
         
         
 
