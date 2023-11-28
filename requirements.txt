@@ -50,3 +50,5 @@ urllib3_secure_extra==0.1.0
 #xmlrpclib==1.0.1
 zstandard==0.21.0
 streamlit-javascript
+sentence-transformers
+huggingface-hub
