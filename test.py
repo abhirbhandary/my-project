@@ -1,22 +1,29 @@
-from dotenv import load_dotenv
 import streamlit as st
 from PyPDF2 import PdfReader 
 #to take from PDF
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 #from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
-from langchain.llms import OpenAI
-from langchain.callbacks import get_openai_callback
 
+
+
+import os
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain import HuggingFaceHub
 
 def main():
-    load_dotenv()
+    
     st.set_page_config(page_title="Ask your PDF")
     st.header("Ask your PDF 💬")
     
     # upload file
+    HUGGINGFACEHUB_API_TOKEN = st.text_input(
+        "Hugging Face Access Tokens", key="api_key", type="password"
+        )
+
+    os.environ["HUGGINGFACEHUB_API_TOKEN"] = HUGGINGFACEHUB_API_TOKEN
+
     pdf = st.file_uploader("Upload your PDF", type="pdf")
     
     # extract the text
@@ -36,7 +43,11 @@ def main():
       chunks = text_splitter.split_text(text)
       
       # create embeddings
-      embeddings = OpenAIEmbeddings()
+      #embeddings = OpenAIEmbeddings()
+
+      embeddings = HuggingFaceEmbeddings()
+
+
       knowledge_base = FAISS.from_texts(chunks, embeddings)
       
       # show user input
@@ -44,12 +55,12 @@ def main():
       if user_question:
         docs = knowledge_base.similarity_search(user_question)
         
-        llm = OpenAI()
+        llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+
+        #google/flan-t5-xxl
+
         chain = load_qa_chain(llm, chain_type="stuff")
-        with get_openai_callback() as cb: #To see how much i have been using the model
-          response = chain.run(input_documents=docs, question=user_question)
-          print(cb)
-           
+        response = chain.run(input_documents=docs, question=user_question)
         st.write(response)
     
 
