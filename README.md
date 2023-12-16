@@ -1,4 +1,5 @@
 PDF Analyzer
+
 PDF Analyzer App is a question-answering app that uses OPEN AI or Hugging Face model to provide relevant answers.
 
 Features
