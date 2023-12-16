@@ -1,9 +1,3 @@
-Langchain for PDFs
-The application utilizes the capabilities of language models and embeddings to perform conversational retrieval, enabling users to ask questions and receive relevant answers from the PDF content.
-
-Purpose
-The purpose of this project is to create an application that can interact with users and provide answers from a PDF documents. The application uses natural language processing and machine learning techniques to understand user queries and retrieve relevant information from the PDFs. By incorporating OpenAI and Hugging Face models, the application leverages powerful language models and embeddings to enhance its conversational abilities and improve the accuracy of responses.
-
 PDF Analyzer
 PDF Analyzer App is a question-answering app that uses OPEN AI or Hugging Face model to provide relevant answers.
 
